@@ -1,10 +1,16 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const MovieItem = ({ movieTitle }) => {
+  const showChatList = () => {};
   return (
     <View style={styles.moviesContainer}>
-      <Text style={styles.movieTitle}>{movieTitle}</Text>
+      <TouchableOpacity style={styles.titleContainer} onPress={showChatList}>
+        <Text style={styles.movieTitle}>{movieTitle}</Text>
+        <FontAwesome name="arrow-right" size={25} color="cornflowerblue" />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -17,8 +23,14 @@ const styles = StyleSheet.create({
   },
   movieTitle: {
     fontFamily: "EuphemiaUCAS-Bold",
-    fontSize: 20,
+    fontSize: 25,
     color: "cornflowerblue",
+    marginRight: 10,
+  },
+  titleContainer: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
 });
 
