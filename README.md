@@ -32,3 +32,7 @@ Expo) that will perform the 2 main following functionalities:
 9. File structure that you worked with
 10. Project implementation details and some decisions you took
 11. If you had more time what would you improve
+
+Notes:
+
+- I could have used some boilerplate that I have, but I made almost everything from scratch.

@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Keyboard, StyleSheet, Text, TextInput, View } from 'react-native';
+import { login, signup } from '../utils/auth';
 
 
 interface AuthScreenProps {
@@ -7,20 +8,24 @@ interface AuthScreenProps {
 }
 
 const AuthScreen: FC<AuthScreenProps> = () => {
-  const [login, setLogin] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
 
   const handleChangeLogin = (text: string) => {
-    setLogin(text);
+    setEmail(text);
   }
 
   const handleChangePassword = (text: string) => {
     setPassword(text);
   }
 
-  const handleSumbit = () => {
-
+  const authHandler = () => {
+    Keyboard.dismiss();
+    if (isSignUp) signup(email, password);
+    else login(email, password);
+    setEmail('');
+    setPassword('');
   }
 
   const toggleSignUp = () => {
@@ -31,11 +36,11 @@ const AuthScreen: FC<AuthScreenProps> = () => {
     <View style={styles.authContainer}>
       <Text style={[styles.text, styles.title]} >Please {isSignUp ? 'Sign Up' : 'Login'}</Text>
       <Text style={styles.text} >Email</Text>
-      <TextInput style={styles.input} value={login} onChangeText={handleChangeLogin} />
+      <TextInput autoCapitalize='none' style={styles.input} value={email} onChangeText={handleChangeLogin} />
       <Text style={styles.text} >Password</Text>
-      <TextInput style={styles.input} value={password} onChangeText={handleChangePassword} />
+      <TextInput autoCapitalize='none' style={styles.input} value={password} onChangeText={handleChangePassword} />
       <View style={styles.submitButton} >
-        <Button title={isSignUp ? 'Sign Up' : 'Login'} onPress={handleSumbit} />
+        <Button title={isSignUp ? 'Sign Up' : 'Login'} onPress={authHandler} />
       </View>
       <View style={styles.signUpContainer}>
         <Text style={styles.signUp} >{isSignUp ? 'Already have an account?' : 'No account yet?'} </Text>
