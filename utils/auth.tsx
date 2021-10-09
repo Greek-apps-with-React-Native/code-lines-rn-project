@@ -1,6 +1,6 @@
 import { Alert, AsyncStorage } from "react-native";
 import { API_KEY } from "../API_KEY";
-import asyncNames from "../constants/asyncNames";
+import storageKeys from "../constants/storageKeys";
 
 export const signup = async (email: string, password: string) => {
 
@@ -93,7 +93,7 @@ export const login = async (email: string, password: string) => {
 }
 
 export const logout = async () => {
-  await AsyncStorage.removeItem(asyncNames.userData);
+  await AsyncStorage.removeItem(storageKeys.userData);
   console.log("logout");
 };
 
@@ -104,7 +104,7 @@ export const saveDataToStorage = async (
   refreshToken: string
 ) => {
   await AsyncStorage.setItem(
-    asyncNames.userData,
+    storageKeys.userData,
     JSON.stringify({
       token,
       userId,
