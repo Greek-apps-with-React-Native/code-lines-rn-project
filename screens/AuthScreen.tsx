@@ -25,7 +25,7 @@ const AuthScreen: FC<AuthScreenProps> = ({ onStateChange }) => {
     else await login(email, password);
     setEmail('');
     setPassword('');
-    onStateChange();
+    onStateChange(); // to hide the AuthScreen
   }
 
   const toggleSignUp = () => {
@@ -39,14 +39,13 @@ const AuthScreen: FC<AuthScreenProps> = ({ onStateChange }) => {
         Please {isSignUp ? 'Sign Up' : 'Login'}
       </Text>
       <TextInput
+        autoFocus
         autoCapitalize='none'
         style={styles.input}
         value={email}
         onChangeText={handleChangeLogin}
         placeholder='Email'
-
       />
-      {/* <Text style={styles.text} >Password</Text> */}
       <TextInput
         secureTextEntry autoCapitalize='none'
         style={styles.input} value={password}
@@ -82,7 +81,6 @@ const AuthScreen: FC<AuthScreenProps> = ({ onStateChange }) => {
 const styles = StyleSheet.create({
   authContainer: {
     width: 350,
-
   },
   authButton: {
     textShadowRadius: 1,
@@ -113,9 +111,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  submitButton: {
-    // fontSize: 50,
-  },
   text: {
     fontFamily: "Cochin-Bold",
     fontSize: 30,
@@ -124,7 +119,6 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 50,
     fontFamily: "Cochin-Bold",
-
   },
 
 })

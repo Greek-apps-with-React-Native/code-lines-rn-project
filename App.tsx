@@ -6,7 +6,6 @@ import AuthScreen from './screens/AuthScreen';
 import { logout } from './utils/auth';
 
 export default function App() {
-  const [loggedOut, setLoggedOut] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
 
   const checkUserState = async () => {
@@ -22,20 +21,12 @@ export default function App() {
 
   const logoutHanlder = async () => {
     await logout()
-    setLoggedOut(true);
-    stateChangeHanlder();
+    checkUserState(); // to show AuthScreen
   }
-
-  const stateChangeHanlder = () => {
-    checkUserState();
-    console.log('stateChangeHanlder ',);
-
-  }
-  console.log('userLoggedIn ', userLoggedIn);
 
   return (
     <View style={styles.container}>
-      {!userLoggedIn ? <AuthScreen onStateChange={stateChangeHanlder} /> : null}
+      {!userLoggedIn ? <AuthScreen onStateChange={checkUserState} /> : null}
       {userLoggedIn ? <IOSButton
         title="Logout"
         color='red'
