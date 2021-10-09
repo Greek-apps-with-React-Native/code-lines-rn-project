@@ -36,3 +36,5 @@ Expo) that will perform the 2 main following functionalities:
 Notes:
 
 - I could have used some boilerplate that I have, but I made almost everything from scratch.
+
+TODO:

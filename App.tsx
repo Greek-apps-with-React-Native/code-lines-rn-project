@@ -1,11 +1,49 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { AsyncStorage, StyleSheet, View } from 'react-native';
+import IOSButton from './components/IOSButton';
+import asyncNames from './constants/asyncNames';
 import AuthScreen from './screens/AuthScreen';
+import { logout } from './utils/auth';
 
 export default function App() {
+  const [loggedOut, setLoggedOut] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
+
+  const checkUserState = async () => {
+    const userData = await AsyncStorage.getItem(asyncNames.userData);
+    if (!!userData) setUserLoggedIn(true);
+    else setUserLoggedIn(false);
+    console.log('--- App --- ', !!userData);
+  }
+
+  useEffect(() => {
+    checkUserState()
+  });
+
+  const logoutHanlder = async () => {
+    await logout()
+    setLoggedOut(true);
+    stateChangeHanlder();
+  }
+
+  const stateChangeHanlder = () => {
+    checkUserState();
+    console.log('stateChangeHanlder ',);
+
+  }
+  console.log('userLoggedIn ', userLoggedIn);
+
   return (
     <View style={styles.container}>
-      <AuthScreen />
+      {!userLoggedIn ? <AuthScreen onStateChange={stateChangeHanlder} /> : null}
+      <IOSButton
+        title="Logout"
+        color='red'
+        onPress={logoutHanlder}
+        style={styles.logoutButton}
+        positionStyle={styles.logoutButtonContainer}
+        disabled={false}
+      />
     </View>
   );
 }
@@ -17,4 +55,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  logoutButton: {
+    textShadowRadius: 1,
+    textShadowColor: 'black',
+  },
+  logoutButtonContainer: {
+    position: 'absolute',
+    top: 50,
+    right: 10,
+    height: 100,
+  }
 });

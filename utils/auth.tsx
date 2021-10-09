@@ -1,5 +1,6 @@
 import { Alert, AsyncStorage } from "react-native";
 import { API_KEY } from "../API_KEY";
+import asyncNames from "../constants/asyncNames";
 
 export const signup = async (email: string, password: string) => {
 
@@ -37,16 +38,11 @@ export const signup = async (email: string, password: string) => {
   }
 
   const resData = await response.json();
-  console.log(resData);
-
-  const expirationDate = new Date(
-    new Date().getTime() + parseInt(resData.expiresIn) * 1000
-  );
+  console.log("sign up", !!resData);
 
   saveDataToStorage(
     resData.idToken,
     resData.localId,
-    expirationDate,
     email,
     resData.refreshToken
   )
@@ -86,45 +82,38 @@ export const login = async (email: string, password: string) => {
   }
   const resData = await response.json(); // transforms the data from json to javascript object
 
-  const expirationDate = new Date(
-    new Date().getTime() + parseInt(resData.expires_in) * 1000
-  );
-
-  console.log(!!resData);
+  console.log("login", !!resData);
 
   saveDataToStorage(
     resData.idToken,
     resData.localId,
-    expirationDate,
     email,
     resData.refreshToken
   )
 }
 
-
 export const logout = async () => {
-  await localStorage.removeItem('userData');
-  await localStorage.removeItem('refreshToken');
-  await localStorage.removeItem('authenticate');
+  await AsyncStorage.removeItem(asyncNames.userData);
+  console.log("logout");
 };
-
 
 export const saveDataToStorage = async (
   token: string,
   userId: string,
-  expirationDate: Date,
   email: string,
   refreshToken: string
 ) => {
   await AsyncStorage.setItem(
-    'userData',
+    asyncNames.userData,
     JSON.stringify({
       token,
       userId,
-      expiryDate: expirationDate.toISOString(),
       email,
       refreshToken
     })
   );
+
+  console.log('saveDataToStorage ', email);
+
 }
 

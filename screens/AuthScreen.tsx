@@ -3,11 +3,9 @@ import { Button, Keyboard, StyleSheet, Text, TextInput, View } from 'react-nativ
 import { login, signup } from '../utils/auth';
 
 
-interface AuthScreenProps {
+interface AuthScreenProps { onStateChange: Function }
 
-}
-
-const AuthScreen: FC<AuthScreenProps> = () => {
+const AuthScreen: FC<AuthScreenProps> = ({ onStateChange }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
@@ -20,12 +18,13 @@ const AuthScreen: FC<AuthScreenProps> = () => {
     setPassword(text);
   }
 
-  const authHandler = () => {
+  const authHandler = async () => {
     Keyboard.dismiss();
-    if (isSignUp) signup(email, password);
-    else login(email, password);
+    if (isSignUp) await signup(email, password);
+    else await login(email, password);
     setEmail('');
     setPassword('');
+    onStateChange();
   }
 
   const toggleSignUp = () => {
@@ -38,7 +37,7 @@ const AuthScreen: FC<AuthScreenProps> = () => {
       <Text style={styles.text} >Email</Text>
       <TextInput autoCapitalize='none' style={styles.input} value={email} onChangeText={handleChangeLogin} />
       <Text style={styles.text} >Password</Text>
-      <TextInput autoCapitalize='none' style={styles.input} value={password} onChangeText={handleChangePassword} />
+      <TextInput secureTextEntry autoCapitalize='none' style={styles.input} value={password} onChangeText={handleChangePassword} />
       <View style={styles.submitButton} >
         <Button title={isSignUp ? 'Sign Up' : 'Login'} onPress={authHandler} />
       </View>
