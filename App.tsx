@@ -10,10 +10,12 @@ import { logout } from './utils/auth';
 
 import MovieItem from './screens/MovieItem';
 import AuthScreen from './screens/AuthScreen';
+import ChatScreen from './screens/ChatScreen';
 
 export default function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [moviesTitles, setMoviesTitles] = useState<string[]>([]);
+  const [showChatScreen, setShowChatScreen] = useState(false);
 
   const checkUserState = async () => {
     const userData = await AsyncStorage.getItem(storageKeys.userData);
@@ -36,6 +38,10 @@ export default function App() {
     setMoviesTitles(movTitles);
   }, [movies]);
 
+  const chatHandler = () => {
+    setShowChatScreen(prev => !prev)
+  }
+
   return (
     <View style={styles.container}>
       {
@@ -56,15 +62,20 @@ export default function App() {
           null
       }
       {
-        userLoggedIn ?
+        userLoggedIn && !showChatScreen ?
 
           <View style={styles.movieListContainer} >
             <Text style={styles.moviesListHeadTitle} >Movies List</Text>
             {
-              moviesTitles.map(title => <MovieItem movieTitle={title} />)
+              moviesTitles.map(title => <MovieItem movieTitle={title} chat={chatHandler} />)
             }
           </View>
           :
+          null
+      }
+      {
+        showChatScreen ?
+          <ChatScreen chat={chatHandler} /> :
           null
       }
     </View>
