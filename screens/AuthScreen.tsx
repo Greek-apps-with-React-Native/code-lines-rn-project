@@ -4,7 +4,6 @@ import { login, signup } from '../utils/auth';
 
 import IOSButton from '../components/IOSButton';
 
-
 interface AuthScreenProps { onStateChange: Function }
 
 const AuthScreen: FC<AuthScreenProps> = ({ onStateChange }) => {

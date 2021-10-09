@@ -36,14 +36,14 @@ export default function App() {
   return (
     <View style={styles.container}>
       {!userLoggedIn ? <AuthScreen onStateChange={stateChangeHanlder} /> : null}
-      <IOSButton
+      {userLoggedIn ? <IOSButton
         title="Logout"
         color='red'
         onPress={logoutHanlder}
         style={styles.logoutButton}
         positionStyle={styles.logoutButtonContainer}
         disabled={false}
-      />
+      /> : null}
     </View>
   );
 }
