@@ -3,8 +3,8 @@ import { FontAwesome } from "@expo/vector-icons";
 
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const MovieItem = ({ movieTitle }) => {
-  const showChatList = () => {};
+const MovieItem = ({ movieTitle }: { movieTitle: string }) => {
+  const showChatList = () => { };
   return (
     <View style={styles.moviesContainer}>
       <TouchableOpacity style={styles.titleContainer} onPress={showChatList}>

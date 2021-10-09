@@ -35,6 +35,27 @@ Expo) that will perform the 2 main following functionalities:
 
 Notes:
 
+#### 1. File Structure:
+
+The app consists of the following folders:
+
+- components
+- constants
+- screens
+- utils
+
+#### 2. Project implementation details - decisions:
+
+- For a reall app I would have used, `React Navigation`, but here I just render screens according to state variables.
+- In order to hide/show the `AuthScreen` and the `Logout` button, I pass a function from the child `AuthScreen` to the parent `App`, which checks if `userData` is stored in device, and acts accordingly.
+
+#### 3. Things that could be improved:
+
+- The token from firebase expires after 1 hour, I could use the `refreshToken` to ask for a new one and keep the user logged in.
+- I could have saved the movies list in firebase and fetch it.
+
+Extra notes:
+
 - I could have used some boilerplate that I have, but I made almost everything from scratch.
 
 TODO:

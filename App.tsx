@@ -19,7 +19,6 @@ export default function App() {
     const userData = await AsyncStorage.getItem(storageKeys.userData);
     if (!!userData) setUserLoggedIn(true);
     else setUserLoggedIn(false);
-    console.log('--- App --- ', !!userData);
   }
 
   useEffect(() => {
