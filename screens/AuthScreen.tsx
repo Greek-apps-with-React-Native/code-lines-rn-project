@@ -2,6 +2,8 @@ import React, { FC, useState } from 'react';
 import { Button, Keyboard, StyleSheet, Text, TextInput, View } from 'react-native';
 import { login, signup } from '../utils/auth';
 
+import IOSButton from '../components/IOSButton';
+
 
 interface AuthScreenProps { onStateChange: Function }
 
@@ -33,17 +35,46 @@ const AuthScreen: FC<AuthScreenProps> = ({ onStateChange }) => {
 
   return (
     <View style={styles.authContainer}>
-      <Text style={[styles.text, styles.title]} >Please {isSignUp ? 'Sign Up' : 'Login'}</Text>
-      <Text style={styles.text} >Email</Text>
-      <TextInput autoCapitalize='none' style={styles.input} value={email} onChangeText={handleChangeLogin} />
-      <Text style={styles.text} >Password</Text>
-      <TextInput secureTextEntry autoCapitalize='none' style={styles.input} value={password} onChangeText={handleChangePassword} />
-      <View style={styles.submitButton} >
-        <Button title={isSignUp ? 'Sign Up' : 'Login'} onPress={authHandler} />
-      </View>
-      <View style={styles.signUpContainer}>
-        <Text style={styles.signUp} >{isSignUp ? 'Already have an account?' : 'No account yet?'} </Text>
-        <Button title={isSignUp ? 'Login' : 'Sign Up'} onPress={toggleSignUp} />
+      <Text
+        style={[styles.text, styles.title]} >
+        Please {isSignUp ? 'Sign Up' : 'Login'}
+      </Text>
+      <TextInput
+        autoCapitalize='none'
+        style={styles.input}
+        value={email}
+        onChangeText={handleChangeLogin}
+        placeholder='Email'
+
+      />
+      {/* <Text style={styles.text} >Password</Text> */}
+      <TextInput
+        secureTextEntry autoCapitalize='none'
+        style={styles.input} value={password}
+        onChangeText={handleChangePassword}
+        placeholder='Password'
+      />
+      <IOSButton
+        title={isSignUp ? 'Sign Up' : 'Login'}
+        color='blue'
+        onPress={authHandler}
+        style={styles.authButton}
+        positionStyle={styles.authButtonContainer}
+        disabled={false}
+      />
+      <View style={styles.toggleSignUpContainer}>
+        <Text
+          style={styles.toggleSignUpText} >
+          {isSignUp ? 'Already have an account?' : 'No account yet?'}
+        </Text>
+        <IOSButton
+          title={isSignUp ? 'Login' : 'Sign Up'}
+          color='blue'
+          onPress={toggleSignUp}
+          style={[styles.toggleSignUpText, styles.authButton]}
+          positionStyle={styles.toggleSignUpButton}
+          disabled={false}
+        />
       </View>
     </View>
   );
@@ -52,31 +83,49 @@ const AuthScreen: FC<AuthScreenProps> = ({ onStateChange }) => {
 const styles = StyleSheet.create({
   authContainer: {
     width: 350,
+
+  },
+  authButton: {
+    textShadowRadius: 1,
+    textShadowColor: 'black',
+  },
+  authButtonContainer: {
+    height: 100
   },
   input: {
     borderBottomColor: 'black',
     borderBottomWidth: 1,
     fontSize: 30,
+    fontFamily: "Cochin-Bold",
     width: 300,
     marginBottom: 50,
   },
-  signUp: {
-    fontSize: 20,
+  toggleSignUpText: {
+    fontSize: 25,
+    fontFamily: "Cochin-Bold",
   },
-  signUpContainer: {
+  toggleSignUpButton: {
+    height: 100,
+    marginTop: 50,
+  },
+  toggleSignUpContainer: {
     marginTop: 80,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   submitButton: {
     // fontSize: 50,
   },
   text: {
+    fontFamily: "Cochin-Bold",
     fontSize: 30,
     marginBottom: 20,
   },
   title: {
     marginBottom: 50,
+    fontFamily: "Cochin-Bold",
+
   },
 
 })
