@@ -31,6 +31,7 @@ export default function App() {
   const logoutHanlder = async () => {
     await logout()
     checkUserState(); // to show AuthScreen
+    setShowChatScreen(false);
   }
 
   useEffect(() => {
@@ -45,47 +46,55 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      {
-        !userLoggedIn ?
-          <AuthScreen onStateChange={checkUserState} /> :
-          null
-      }
-      {
-        userLoggedIn ?
-          <IOSButton
-            title="Logout"
-            color='red'
-            onPress={logoutHanlder}
-            style={styles.logoutButton}
-            positionStyle={styles.logoutButtonContainer}
-            disabled={false}
-          /> :
-          null
-      }
-      {
-        userLoggedIn && !showChatScreen ?
+    <View style={styles.screenContainer}>
+      <View style={styles.topBar} >
 
-          <View style={styles.movieListContainer} >
-            <Text style={styles.moviesListHeadTitle} >Movies List</Text>
-            {
-              moviesTitles.map(title => <MovieItem movieTitle={title} chat={chatHandler} />)
-            }
-          </View>
-          :
-          null
-      }
-      {
-        showChatScreen ?
-          <ChatScreen chat={chatHandler} chatTitle={chatMovTitle} /> :
-          null
-      }
+        {
+          userLoggedIn ?
+            <IOSButton
+              title="Logout"
+              color='red'
+              onPress={logoutHanlder}
+              style={styles.logoutButton}
+              positionStyle={styles.logoutButtonContainer}
+              disabled={false}
+            /> :
+            null
+        }
+      </View>
+      <View style={styles.body} >
+        {
+          !userLoggedIn ?
+            <AuthScreen onStateChange={checkUserState} /> :
+            null
+        }
+        {
+          userLoggedIn && !showChatScreen ?
+
+            <View style={styles.movieListContainer} >
+              <Text style={styles.moviesListHeadTitle} >Movies List</Text>
+              {
+                moviesTitles.map((title, idx) => <MovieItem key={title + idx} movieTitle={title} chat={chatHandler} />)
+              }
+            </View>
+            :
+            null
+        }
+        {
+          showChatScreen ?
+            <ChatScreen chat={chatHandler} chatTitle={chatMovTitle} /> :
+            null
+        }
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  body: {
+    flex: 10
+  },
+  screenContainer: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
@@ -97,9 +106,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   logoutButtonContainer: {
-    position: 'absolute',
-    top: 50,
-    right: 10,
+    marginTop: 40,
+    marginRight: -300,
     height: 100,
   },
   moviesListHeadTitle: {
@@ -110,5 +118,8 @@ const styles = StyleSheet.create({
   },
   movieListContainer: {
     marginBottom: 30
+  },
+  topBar: {
+    flex: 1
   }
 });

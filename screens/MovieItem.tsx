@@ -19,9 +19,9 @@ const MovieItem = ({ movieTitle, chat }: { movieTitle: string, chat: Function })
 
 const styles = StyleSheet.create({
   moviesContainer: {
-    flex: 1,
     justifyContent: "space-around",
-    marginTop: 10,
+    alignItems: 'flex-start',
+    marginTop: 20,
   },
   movieTitle: {
     fontFamily: "EuphemiaUCAS-Bold",

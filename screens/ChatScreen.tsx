@@ -21,11 +21,10 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
 
 const styles = StyleSheet.create({
   arrowTitleContainer: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    marginTop: 100,
+    marginTop: 40,
     marginRight: 45,
   },
   chatTitle: {
@@ -35,7 +34,7 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   chatContainer: {
-    marginTop: 10,
+    // marginTop: 10,
   },
 });
 
