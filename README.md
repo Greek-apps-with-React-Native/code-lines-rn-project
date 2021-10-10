@@ -57,8 +57,10 @@ The app consists of the following folders:
 - Save the movies list in firebase and fetch it.
 - Add email and password validation.
 - Add icon to logout.
-
-Extra notes:
+- Add ability to send photos in chat.
+- Add number of users that participate in the chat room.
+- Add rules to firebase and use a token to save messages.
+  Extra notes:
 
 - I could have used some boilerplate that I have, but I made almost everything from scratch.
 

@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { FontAwesome } from "@expo/vector-icons";
+
 import IOSButton from '../components/IOSButton';
+import sendMessage from '../utils/sendMessage';
 
 const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) => {
   const [comment, setComment] = React.useState('');
@@ -10,11 +12,12 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
     chat();
   };
 
-  const handleCommentChange = () => {
-
+  const commentChangeHandler = (text: string) => {
+    setComment(text);
   }
-  const commentHanlder = () => {
-
+  const sendMessageHandler = () => {
+    sendMessage(chatTitle, comment);
+    setComment('');
   }
   return (
     <View style={styles.chatContainer}>
@@ -38,13 +41,13 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
             autoCapitalize='none'
             style={styles.input}
             value={comment}
-            onChangeText={handleCommentChange}
-            placeholder='Write your comment'
+            onChangeText={commentChangeHandler}
+            placeholder='Write your comment...'
           />
           <IOSButton
             title="Send"
             color='cornflowerblue'
-            onPress={commentHanlder}
+            onPress={sendMessageHandler}
             style={styles.commentButton}
             positionStyle={styles.commentButtonContainer}
             disabled={false}
