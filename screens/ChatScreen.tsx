@@ -3,12 +3,15 @@ import { Alert, AsyncStorage, StyleSheet, Text, TextInput, TouchableOpacity, Vie
 import { FontAwesome } from "@expo/vector-icons";
 
 import IOSButton from '../components/IOSButton';
-import sendMessage from '../utils/sendMessage';
+import Comment from '../components/Comment';
 import storageKeys from '../constants/storageKeys';
+import sendComment from '../utils/sendComment';
+import fetchComments from '../utils/fetchComments';
 
 const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) => {
   const [comment, setComment] = React.useState('');
   const [email, setEmail] = React.useState('');
+  const [fetchedComments, setFetchedComments] = React.useState<Array<any>>([]);
 
   useEffect(() => {
     (async () => {
@@ -16,6 +19,19 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
       if (!!userEmail) setEmail(userEmail)
     })()
   });
+
+  useEffect(() => {
+    (async () => {
+      const comments = await fetchComments(chatTitle);
+      setFetchedComments(comments);
+    })()
+  }, [chatTitle]);
+
+  const displayComments = () => {
+    return fetchedComments.map((comment: any, index: number) => (
+      <Comment comment={comment} index={index} />
+    ))
+  }
 
   const showChatList = () => {
     chat();
@@ -28,7 +44,7 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
     if (!comment.trim().length) {
       Alert.alert('Emply comment', 'Please write something.')
     } else {
-      sendMessage(chatTitle, comment, email);
+      sendComment(chatTitle, comment, email);
       setComment('');
     }
   }
@@ -41,16 +57,14 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
         <Text style={styles.chatTitle} >{chatTitle}</Text>
       </View>
       <View style={styles.chatBody} >
-        <View style={styles.chatHeader} >
-          <Text>Header</Text>
-        </View>
         <View style={styles.commentsContainer} >
-          <Text>Comments</Text>
+          {displayComments()}
         </View>
         <View style={styles.commentForm} >
-          <Text>commentForm</Text>
           <TextInput
             autoFocus
+            multiline
+            numberOfLines={2}
             autoCapitalize='none'
             style={styles.input}
             value={comment}
@@ -82,7 +96,8 @@ const styles = StyleSheet.create({
     marginRight: 45,
   },
   chatBody: {
-
+    width: 350,
+    height: '90%',
   },
   chatHeader: {
 
@@ -94,27 +109,38 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   chatContainer: {
-    flex: 1
+    flex: 1,
+    // backgroundColor: 'gainsboro'
   },
   commentButton: {
-
+    marginBottom: 25,
   },
   commentButtonContainer: {
 
   },
   commentForm: {
-
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    marginBottom: 20,
   },
   commentsContainer: {
-
+    height: '75%',
+    borderWidth: 1,
+    borderRadius: 20,
+    marginTop: 20,
   },
   input: {
     borderBottomColor: 'black',
-    borderBottomWidth: 1,
-    fontSize: 30,
-    fontFamily: "Cochin-Bold",
-    width: 300,
-    marginBottom: 50,
+    borderWidth: 1,
+    borderRadius: 20,
+    fontSize: 25,
+    padding: 20,
+    fontFamily: "Cochin",
+    width: 250,
+    height: 100,
   },
 });
 

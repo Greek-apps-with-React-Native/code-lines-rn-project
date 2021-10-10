@@ -1,4 +1,4 @@
-const sendMessage = async (title: string, message: string, email: string) => {
+const sendComment = async (title: string, comment: string, email: string) => {
   const trimedTitle = title.replace(/\s+/g, '').trim().toLowerCase()
   const date = new Date();
 
@@ -11,7 +11,7 @@ const sendMessage = async (title: string, message: string, email: string) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        message,
+        comment,
         user: email,
         date,
       }),
@@ -25,4 +25,4 @@ const sendMessage = async (title: string, message: string, email: string) => {
   }
 }
 
-export default sendMessage;
+export default sendComment;

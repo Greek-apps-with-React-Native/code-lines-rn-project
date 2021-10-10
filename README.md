@@ -54,16 +54,14 @@ The app consists of the following folders:
 #### 3. Things that could be improved:
 
 - The token from firebase expires after 1 hour, I could use the `refreshToken` to ask for a new one and keep the user logged in.
+- load first 10 movies and then per scroll load extra 10 movies, unitll the end of the list.
 - Save the movies list in firebase and fetch it.
 - Add email and password validation.
 - Add icon to logout.
 - Add ability to send photos in chat.
 - Add number of users that participate in the chat room.
+- Add user name and profile picture to comments.
 - Add rules to firebase and use a token to save messages.
-  Extra notes:
-
-- I could have used some boilerplate that I have, but I made almost everything from scratch.
-
-TODO:
-
-- logout button is not working
+- Add try/catch blocks and show error messages.
+- Use a more user friendly date to comments.
+- Use a FlatList to render all the comments and per scroll load more...
