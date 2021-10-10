@@ -16,6 +16,7 @@ export default function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [moviesTitles, setMoviesTitles] = useState<string[]>([]);
   const [showChatScreen, setShowChatScreen] = useState(false);
+  const [chatMovTitle, setChatMovTitle] = useState('');
 
   const checkUserState = async () => {
     const userData = await AsyncStorage.getItem(storageKeys.userData);
@@ -38,7 +39,8 @@ export default function App() {
     setMoviesTitles(movTitles);
   }, [movies]);
 
-  const chatHandler = () => {
+  const chatHandler = (title: string) => {
+    setChatMovTitle(title);
     setShowChatScreen(prev => !prev)
   }
 
@@ -75,7 +77,7 @@ export default function App() {
       }
       {
         showChatScreen ?
-          <ChatScreen chat={chatHandler} /> :
+          <ChatScreen chat={chatHandler} chatTitle={chatMovTitle} /> :
           null
       }
     </View>

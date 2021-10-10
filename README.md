@@ -47,15 +47,19 @@ The app consists of the following folders:
 #### 2. Project implementation details - decisions:
 
 - For a reall app I would have used, `React Navigation`, but here I just render screens according to state variables.
-- In order to hide/show the `AuthScreen` and the `Logout` button, I pass a function from the child `AuthScreen` to the parent `App`, which checks if `userData` is stored in device, and acts accordingly. Normally I would have used `redux`.
+- In order to hide/show the `AuthScreen` and the `Logout` button, I pass a function (namely `checkUserState`) from the child `AuthScreen` to the parent `App`, which checks if `userData` is stored in device, and acts accordingly. Normally I would have used `redux`. Further more I do the same to hied/show `ChatScreen` using the `chatHandler` function.
+- When user navigates to a chat screen, by clicking the name of a movie, the name of the movie, is shown on the chat screen.
 
 #### 3. Things that could be improved:
 
 - The token from firebase expires after 1 hour, I could use the `refreshToken` to ask for a new one and keep the user logged in.
-- I could have saved the movies list in firebase and fetch it.
+- Save the movies list in firebase and fetch it.
+- Add email and password validation.
 
 Extra notes:
 
 - I could have used some boilerplate that I have, but I made almost everything from scratch.
 
 TODO:
+
+- logout button is not working

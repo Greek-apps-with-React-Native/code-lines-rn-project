@@ -5,7 +5,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const MovieItem = ({ movieTitle, chat }: { movieTitle: string, chat: Function }) => {
   const showChatList = () => {
-    chat();
+    chat(movieTitle);
   };
   return (
     <View style={styles.moviesContainer}>

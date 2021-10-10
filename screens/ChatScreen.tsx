@@ -2,36 +2,40 @@ import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { FontAwesome } from "@expo/vector-icons";
 
-const ChatScreen = ({ chat }: { chat: Function }) => {
+const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) => {
   const showChatList = () => {
     chat();
   };
   return (
     <View style={styles.chatContainer}>
-      <TouchableOpacity style={styles.backArrowContainer} onPress={showChatList}>
-        <FontAwesome name="arrow-left" size={35} color="cornflowerblue" />
-      </TouchableOpacity>
+      <View style={styles.arrowTitleContainer} >
+        <TouchableOpacity onPress={showChatList}>
+          <FontAwesome name="arrow-left" size={30} color="cornflowerblue" />
+        </TouchableOpacity>
+        <Text style={styles.chatTitle} >{chatTitle}</Text>
+      </View>
     </View>
   );
 }
 
 
 const styles = StyleSheet.create({
-  chatContainer: {
+  arrowTitleContainer: {
     flex: 1,
-    justifyContent: "space-around",
-    marginTop: 10,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    marginTop: 100,
+    marginRight: 45,
   },
-  // movieTitle: {
-  //   fontFamily: "EuphemiaUCAS-Bold",
-  //   fontSize: 25,
-  //   color: "cornflowerblue",
-  //   marginRight: 10,
-  // },
-  backArrowContainer: {
-    position: 'absolute',
-    top: 50,
-    left: -180
+  chatTitle: {
+    fontFamily: "EuphemiaUCAS-Bold",
+    fontSize: 25,
+    color: "darkblue",
+    marginLeft: 15,
+  },
+  chatContainer: {
+    marginTop: 10,
   },
 });
 
