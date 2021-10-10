@@ -1,12 +1,7 @@
-import { AsyncStorage } from "react-native";
-import storageKeys from "../constants/storageKeys";
-
-const sendMessage = async (title: string, message: string) => {
+const sendMessage = async (title: string, message: string, email: string) => {
   const trimedTitle = title.replace(/\s+/g, '').trim().toLowerCase()
-  console.log(trimedTitle);
+  const date = new Date();
 
-  let email = 'email'
-  let date = 'today'
 
   const response = await fetch(
     `https://code-lines-rn-project-default-rtdb.europe-west1.firebasedatabase.app/chatrooms/${trimedTitle}.json`,

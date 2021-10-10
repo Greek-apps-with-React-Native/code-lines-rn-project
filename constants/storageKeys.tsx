@@ -1,3 +1,4 @@
 export default {
-  userData: 'userData'
+  userData: 'userData',
+  email: 'email'
 }

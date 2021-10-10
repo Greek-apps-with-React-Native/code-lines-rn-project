@@ -110,8 +110,9 @@ export const saveDataToStorage = async (
       userId,
       email,
       refreshToken
-    })
-  );
+    }));
+
+  await AsyncStorage.setItem(storageKeys.email, email);
 
   console.log('saveDataToStorage ', email);
 

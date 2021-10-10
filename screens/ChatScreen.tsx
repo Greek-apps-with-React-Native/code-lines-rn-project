@@ -1,12 +1,21 @@
-import * as React from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Alert, AsyncStorage, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { FontAwesome } from "@expo/vector-icons";
 
 import IOSButton from '../components/IOSButton';
 import sendMessage from '../utils/sendMessage';
+import storageKeys from '../constants/storageKeys';
 
 const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) => {
   const [comment, setComment] = React.useState('');
+  const [email, setEmail] = React.useState('');
+
+  useEffect(() => {
+    (async () => {
+      const userEmail = await AsyncStorage.getItem(storageKeys.email);
+      if (!!userEmail) setEmail(userEmail)
+    })()
+  });
 
   const showChatList = () => {
     chat();
@@ -16,8 +25,12 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
     setComment(text);
   }
   const sendMessageHandler = () => {
-    sendMessage(chatTitle, comment);
-    setComment('');
+    if (!comment.trim().length) {
+      Alert.alert('Emply comment', 'Please write something.')
+    } else {
+      sendMessage(chatTitle, comment, email);
+      setComment('');
+    }
   }
   return (
     <View style={styles.chatContainer}>
