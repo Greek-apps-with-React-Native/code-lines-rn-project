@@ -25,7 +25,7 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
       const comments = await fetchComments(chatTitle);
       setFetchedComments(comments);
     })()
-  }, [chatTitle]);
+  }, [chatTitle, comment]);
 
   const displayComments = () => {
     return fetchedComments.map((comment: any, index: number) => (
