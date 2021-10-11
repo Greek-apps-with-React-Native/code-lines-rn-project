@@ -33,15 +33,24 @@ Expo) that will perform the 2 main following functionalities:
 10. Project implementation details and some decisions you took
 11. If you had more time what would you improve
 
+=================================================================\
 Notes:
+
+- Time to finish: 14 hours over 4 days (weekend included).
+- Tested on iPhone 11.
+- Has 2 branches. Thes second `FlatlistMovies` should be deleted.
+
+=================================================================
 
 #### 1. File Structure:
 
 The app consists of the following folders:
 
+- assets
 - components
 - constants
 - screens
+- styles
 - utils
 
 #### 2. Project implementation details - decisions:
@@ -58,12 +67,15 @@ The app consists of the following folders:
 - Save the movies list in firebase and fetch it.
 - Add email and password validation.
 - Disable login/singup button while user has not filled in email and password.
+- Add `ActivityIndicator` when pressing a button.
 - Add icon to logout.
 - Add ability to send photos in chat.
 - Add number of users that participate in the chat room.
 - Add user name and profile picture to comments.
 - Add rules to firebase and use a token to save messages.
 - Add try/catch blocks and show error messages.
-- Use a more user friendly date to comments.
+- [Solved] Use a more user friendly date to comments.
 - [Solved] Use a ScrollView to render all the comments and per scroll load more...
 - [Solved] I have `comment` as a dependency in useEffect that fetches the comments, in order to show the comment when user sends it. That makes useEffect run an every letter the user types. Should only run when user sends the comment.
+
+Thank you!

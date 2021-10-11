@@ -11,6 +11,7 @@ import { logout } from './utils/auth';
 import MovieItem from './screens/MovieItem';
 import AuthScreen from './screens/AuthScreen';
 import ChatScreen from './screens/ChatScreen';
+import MoviesImage from './components/MoviesImage';
 
 export default function App() {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
@@ -63,6 +64,7 @@ export default function App() {
   return (
     <View style={styles.screenContainer}>
       <View style={styles.topBar} >
+        {!userLoggedIn ? <Text style={styles.movieChat} >MovieChat</Text> : null}
         {
           userLoggedIn ?
             <IOSButton
@@ -79,7 +81,10 @@ export default function App() {
       <View style={styles.body} >
         {
           !userLoggedIn ?
-            <AuthScreen onStateChange={checkUserState} /> :
+            <View style={styles.authScreen} >
+              <MoviesImage />
+              <AuthScreen onStateChange={checkUserState} />
+            </View> :
             null
         }
         {
@@ -107,6 +112,10 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  authScreen: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   body: {
     flex: 10
   },
@@ -126,6 +135,13 @@ const styles = StyleSheet.create({
     marginRight: -300,
     height: 100,
   },
+  movieChat: {
+    fontFamily: 'EuphemiaUCAS-Bold',
+    fontSize: 35,
+    marginTop: 40,
+    color: 'darkblue',
+    alignSelf: 'center'
+  },
   moviesListHeadTitle: {
     fontFamily: 'EuphemiaUCAS-Bold',
     fontSize: 35,
@@ -138,6 +154,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   topBar: {
-    flex: 1
+    flex: 1.5
   }
 });

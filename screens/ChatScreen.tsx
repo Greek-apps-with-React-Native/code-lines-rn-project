@@ -7,6 +7,7 @@ import Comment from '../components/Comment';
 import storageKeys from '../constants/storageKeys';
 import sendComment from '../utils/sendComment';
 import fetchComments from '../utils/fetchComments';
+import defaultStyles from '../styles/defaultStyles';
 
 const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) => {
   const [comment, setComment] = React.useState('');
@@ -61,7 +62,7 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
         <Text style={styles.chatTitle} >{chatTitle}</Text>
       </View>
       <View style={styles.chatBody} >
-        <View style={[styles.commentsContainer, styles.boxShadow]} >
+        <View style={[styles.commentsContainer, defaultStyles.boxShadow]} >
           <ScrollView>
             {displayComments()}
           </ScrollView>
@@ -72,7 +73,7 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
             multiline
             numberOfLines={2}
             autoCapitalize='none'
-            style={[styles.input, styles.boxShadow]}
+            style={[styles.input, defaultStyles.boxShadow]}
             value={comment}
             onChangeText={commentChangeHandler}
             placeholder='Write your comment...'
@@ -98,17 +99,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 20,
     marginRight: 45,
-  },
-  boxShadow: {
-    borderWidth: 1,
-    borderRadius: 20,
-    backgroundColor: 'ghostwhite',
-    borderColor: 'darkblue',
-    shadowColor: "crimson",
-    shadowOpacity: 0.36,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 8,
-    elevation: 5,
   },
   chatBody: {
     width: 350,
@@ -140,7 +130,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: 'ghostwhite',
-    borderColor: 'darkblue',
+    borderColor: 'crimson',
     borderWidth: 1,
     borderRadius: 20,
     fontSize: 25,

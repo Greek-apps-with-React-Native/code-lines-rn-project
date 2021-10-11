@@ -1,8 +1,9 @@
 import React, { FC, useState } from 'react';
-import { Button, Keyboard, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Keyboard, StyleSheet, Text, TextInput, View } from 'react-native';
 import { login, signup } from '../utils/auth';
 
 import IOSButton from '../components/IOSButton';
+import defaultStyles from '../styles/defaultStyles';
 
 interface AuthScreenProps { onStateChange: Function }
 
@@ -41,23 +42,22 @@ const AuthScreen: FC<AuthScreenProps> = ({ onStateChange }) => {
       <TextInput
         autoFocus
         autoCapitalize='none'
-        style={styles.input}
+        style={[styles.input, defaultStyles.boxShadow]}
         value={email}
         onChangeText={handleChangeLogin}
         placeholder='Email'
       />
       <TextInput
         secureTextEntry autoCapitalize='none'
-        style={styles.input} value={password}
+        style={[styles.input, defaultStyles.boxShadow]} value={password}
         onChangeText={handleChangePassword}
         placeholder='Password'
       />
       <IOSButton
         title={isSignUp ? 'Sign Up' : 'Login'}
-        color='blue'
+        color='darkblue'
         onPress={authHandler}
         style={styles.authButton}
-        positionStyle={styles.authButtonContainer}
         disabled={false}
       />
       <View style={styles.toggleSignUpContainer}>
@@ -67,7 +67,7 @@ const AuthScreen: FC<AuthScreenProps> = ({ onStateChange }) => {
         </Text>
         <IOSButton
           title={isSignUp ? 'Login' : 'Sign Up'}
-          color='blue'
+          color='darkblue'
           onPress={toggleSignUp}
           style={[styles.toggleSignUpText, styles.authButton]}
           positionStyle={styles.toggleSignUpButton}
@@ -80,22 +80,25 @@ const AuthScreen: FC<AuthScreenProps> = ({ onStateChange }) => {
 
 const styles = StyleSheet.create({
   authContainer: {
+    flex: 1,
     width: 350,
+    marginTop: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   authButton: {
     textShadowRadius: 1,
-    textShadowColor: 'black',
-  },
-  authButtonContainer: {
-    height: 100
+    textShadowColor: 'crimson',
   },
   input: {
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-    fontSize: 30,
+    borderBottomColor: 'crimson',
+    borderWidth: 1,
+    borderRadius: 20,
+    fontSize: 25,
     fontFamily: "Cochin-Bold",
     width: 300,
     marginBottom: 50,
+    padding: 10,
   },
   toggleSignUpText: {
     fontSize: 25,
@@ -106,7 +109,6 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   toggleSignUpContainer: {
-    marginTop: 80,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
@@ -119,6 +121,7 @@ const styles = StyleSheet.create({
   title: {
     marginBottom: 50,
     fontFamily: "Cochin-Bold",
+    color: 'cornflowerblue',
   },
 
 })
