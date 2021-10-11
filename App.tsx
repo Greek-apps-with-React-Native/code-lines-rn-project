@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AsyncStorage, StyleSheet, Text, View } from 'react-native';
+import { AsyncStorage, FlatList, StyleSheet, Text, View } from 'react-native';
 
 import IOSButton from './components/IOSButton';
 
@@ -17,6 +17,7 @@ export default function App() {
   const [moviesTitles, setMoviesTitles] = useState<string[]>([]);
   const [showChatScreen, setShowChatScreen] = useState(false);
   const [chatMovTitle, setChatMovTitle] = useState('');
+  const [dataSlice, setDataSlice] = useState<object[]>([]);
 
   const checkUserState = async () => {
     const userData = await AsyncStorage.getItem(storageKeys.userData);
@@ -45,10 +46,23 @@ export default function App() {
     setShowChatScreen(prev => !prev)
   }
 
+  const renderMoviesList = ({ item }: any) =>
+    <MovieItem movieTitle={item.title} chat={chatHandler} />
+
+  // Code for loading only the first 10 winner and then each time user scrolls 10 more...
+  const loadMore = () => {
+    const ITEMS_PER_PAGE = 10; // what is the batch size you want to load.
+    let page = 1;
+    const start = page * ITEMS_PER_PAGE;
+    const end = (page + 1) * ITEMS_PER_PAGE - 1;
+
+    const newData = movies && movies.slice(start, end); // here, we will receive next batch of the items
+    setDataSlice([...dataSlice, ...newData]); // here we are appending new batch to existing batch
+  };
+
   return (
     <View style={styles.screenContainer}>
       <View style={styles.topBar} >
-
         {
           userLoggedIn ?
             <IOSButton
@@ -70,12 +84,14 @@ export default function App() {
         }
         {
           userLoggedIn && !showChatScreen ?
-
             <View style={styles.movieListContainer} >
               <Text style={styles.moviesListHeadTitle} >Movies List</Text>
-              {
-                moviesTitles.map((title, idx) => <MovieItem key={title + idx} movieTitle={title} chat={chatHandler} />)
-              }
+              <FlatList
+                data={movies}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={renderMoviesList}
+                onEndReached={loadMore}
+              />
             </View>
             :
             null
@@ -117,7 +133,8 @@ const styles = StyleSheet.create({
     color: 'darkblue'
   },
   movieListContainer: {
-    marginBottom: 30
+    marginBottom: 30,
+    marginHorizontal: 20,
   },
   topBar: {
     flex: 1

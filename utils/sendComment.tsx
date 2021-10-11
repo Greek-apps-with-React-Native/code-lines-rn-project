@@ -1,6 +1,11 @@
+import moment from "moment";
+
 const sendComment = async (title: string, comment: string, email: string) => {
   const trimedTitle = title.replace(/\s+/g, '').trim().toLowerCase()
-  const date = new Date();
+  const newDate = new Date();
+  const elLocale = require("moment/locale/el");
+  moment.updateLocale("el", elLocale);
+  const date = moment(newDate).format("LLL");
 
 
   const response = await fetch(
