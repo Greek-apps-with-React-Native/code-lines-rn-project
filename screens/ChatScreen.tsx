@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Alert, AsyncStorage, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, AsyncStorage, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, _ScrollView } from 'react-native';
 import { FontAwesome } from "@expo/vector-icons";
 
 import IOSButton from '../components/IOSButton';
@@ -58,7 +58,9 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
       </View>
       <View style={styles.chatBody} >
         <View style={styles.commentsContainer} >
-          {displayComments()}
+          <ScrollView>
+            {displayComments()}
+          </ScrollView>
         </View>
         <View style={styles.commentForm} >
           <TextInput
@@ -128,6 +130,7 @@ const styles = StyleSheet.create({
   },
   commentsContainer: {
     height: '75%',
+    maxHeight: '75%',
     borderWidth: 1,
     borderRadius: 20,
     marginTop: 20,
