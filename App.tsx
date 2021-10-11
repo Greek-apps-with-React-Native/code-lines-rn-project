@@ -84,7 +84,6 @@ export default function App() {
         }
         {
           userLoggedIn && !showChatScreen ?
-
             <View style={styles.movieListContainer} >
               <Text style={styles.moviesListHeadTitle} >Movies List</Text>
               <FlatList
