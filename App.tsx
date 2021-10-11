@@ -129,8 +129,9 @@ const styles = StyleSheet.create({
   moviesListHeadTitle: {
     fontFamily: 'EuphemiaUCAS-Bold',
     fontSize: 35,
-    marginTop: 100,
-    color: 'darkblue'
+    marginTop: 20,
+    color: 'darkblue',
+    alignSelf: 'center'
   },
   movieListContainer: {
     marginBottom: 30,
