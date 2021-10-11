@@ -54,7 +54,7 @@ The app consists of the following folders:
 #### 3. Things that could be improved:
 
 - The token from firebase expires after 1 hour, I could use the `refreshToken` to ask for a new one and keep the user logged in.
-- load first 10 movies and then per scroll load extra 10 movies, unitll the end of the list.
+- [Solved] Load first 10 movies and then per scroll load extra 10 movies, unitll the end of the list.
 - Save the movies list in firebase and fetch it.
 - Add email and password validation.
 - Disable login/singup button while user has not filled in email and password.
@@ -65,4 +65,5 @@ The app consists of the following folders:
 - Add rules to firebase and use a token to save messages.
 - Add try/catch blocks and show error messages.
 - Use a more user friendly date to comments.
-- Use a FlatList to render all the comments and per scroll load more...
+- [Solved] Use a ScrollView to render all the comments and per scroll load more...
+- [Solved] I have `comment` as a dependency in useEffect that fetches the comments, in order to show the comment when user sends it. That makes useEffect run an every letter the user types. Should only run when user sends the comment.

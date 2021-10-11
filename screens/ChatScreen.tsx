@@ -12,6 +12,7 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
   const [comment, setComment] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [fetchedComments, setFetchedComments] = React.useState<Array<any>>([]);
+  const [commentIsSent, setCommentIsSent] = React.useState(false);
 
   useEffect(() => {
     (async () => {
@@ -21,11 +22,13 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
   });
 
   useEffect(() => {
+    console.log('useEffect');
+
     (async () => {
       const comments = await fetchComments(chatTitle);
       setFetchedComments(comments);
     })()
-  }, [chatTitle, comment]);
+  }, [chatTitle, commentIsSent]);
 
   const displayComments = () => {
     return fetchedComments.map((comment: any, index: number) => (
@@ -46,10 +49,11 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
     } else {
       sendComment(chatTitle, comment, email);
       setComment('');
+      setCommentIsSent(prev => !prev);
     }
   }
   return (
-    <View style={styles.chatContainer}>
+    <View>
       <View style={styles.arrowTitleContainer} >
         <TouchableOpacity onPress={showChatList}>
           <FontAwesome name="arrow-left" size={30} color="cornflowerblue" />
@@ -57,7 +61,7 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
         <Text style={styles.chatTitle} >{chatTitle}</Text>
       </View>
       <View style={styles.chatBody} >
-        <View style={styles.commentsContainer} >
+        <View style={[styles.commentsContainer, styles.boxShadow]} >
           <ScrollView>
             {displayComments()}
           </ScrollView>
@@ -68,7 +72,7 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
             multiline
             numberOfLines={2}
             autoCapitalize='none'
-            style={styles.input}
+            style={[styles.input, styles.boxShadow]}
             value={comment}
             onChangeText={commentChangeHandler}
             placeholder='Write your comment...'
@@ -78,11 +82,9 @@ const ChatScreen = ({ chat, chatTitle }: { chat: Function, chatTitle: string }) 
             color='cornflowerblue'
             onPress={sendMessageHandler}
             style={styles.commentButton}
-            positionStyle={styles.commentButtonContainer}
             disabled={false}
           />
         </View>
-
       </View>
     </View>
   );
@@ -94,15 +96,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    marginTop: 40,
+    marginTop: 20,
     marginRight: 45,
+  },
+  boxShadow: {
+    borderWidth: 1,
+    borderRadius: 20,
+    backgroundColor: 'ghostwhite',
+    borderColor: 'darkblue',
+    shadowColor: "crimson",
+    shadowOpacity: 0.36,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 8,
+    elevation: 5,
   },
   chatBody: {
     width: 350,
     height: '90%',
-  },
-  chatHeader: {
-
   },
   chatTitle: {
     fontFamily: "EuphemiaUCAS-Bold",
@@ -110,39 +120,33 @@ const styles = StyleSheet.create({
     color: "darkblue",
     marginLeft: 15,
   },
-  chatContainer: {
-    flex: 1,
-    // backgroundColor: 'gainsboro'
-  },
   commentButton: {
     marginBottom: 25,
-  },
-  commentButtonContainer: {
-
+    fontSize: 30,
+    textShadowRadius: 1,
+    textShadowColor: 'crimson',
   },
   commentForm: {
     flex: 1,
     width: '100%',
-    flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginVertical: 20,
   },
   commentsContainer: {
     height: '75%',
     maxHeight: '75%',
-    borderWidth: 1,
-    borderRadius: 20,
     marginTop: 20,
   },
   input: {
-    borderBottomColor: 'black',
+    backgroundColor: 'ghostwhite',
+    borderColor: 'darkblue',
     borderWidth: 1,
     borderRadius: 20,
     fontSize: 25,
     padding: 20,
     fontFamily: "Cochin",
-    width: 250,
+    width: '95%',
     height: 100,
   },
 });

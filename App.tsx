@@ -67,7 +67,7 @@ export default function App() {
           userLoggedIn ?
             <IOSButton
               title="Logout"
-              color='red'
+              color='crimson'
               onPress={logoutHanlder}
               style={styles.logoutButton}
               positionStyle={styles.logoutButtonContainer}
@@ -112,13 +112,13 @@ const styles = StyleSheet.create({
   },
   screenContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'aliceblue',
     alignItems: 'center',
     justifyContent: 'center',
   },
   logoutButton: {
     textShadowRadius: 1,
-    textShadowColor: 'black',
+    textShadowColor: 'darkblue',
     fontSize: 25,
   },
   logoutButtonContainer: {

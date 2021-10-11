@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   container: {
-    marginVertical: 20,
+    marginVertical: 10,
     marginHorizontal: 10,
     borderRadius: 25,
     backgroundColor: 'gainsboro',
