@@ -19,11 +19,11 @@ export default function App() {
   const [showChatScreen, setShowChatScreen] = useState(false);
   const [chatMovTitle, setChatMovTitle] = useState('');
   const [dataSlice, setDataSlice] = useState<object[]>([]);
-
+  const [pageNumber, setPageNumber] = useState<number>(0);
   const checkUserState = async () => {
     const userData = await AsyncStorage.getItem(storageKeys.userData);
     if (!!userData) setUserLoggedIn(true);
-    else setUserLoggedIn(false);
+    else setUserLoggedIn(false)
   }
 
   useEffect(() => {
@@ -53,9 +53,9 @@ export default function App() {
   // Code for loading only the first 10 winner and then each time user scrolls 10 more...
   const loadMore = () => {
     const ITEMS_PER_PAGE = 10; // what is the batch size you want to load.
-    let page = 1;
-    const start = page * ITEMS_PER_PAGE;
-    const end = (page + 1) * ITEMS_PER_PAGE - 1;
+    setPageNumber(prev => prev + 1);
+    const start = pageNumber * ITEMS_PER_PAGE;
+    const end = (pageNumber + 1) * ITEMS_PER_PAGE - 1;
 
     const newData = movies && movies.slice(start, end); // here, we will receive next batch of the items
     setDataSlice([...dataSlice, ...newData]); // here we are appending new batch to existing batch

@@ -12,7 +12,7 @@ const MovieItem = ({ movieTitle, chat }: { movieTitle: string, chat: Function })
     <View style={[styles.moviesContainer, defaultStyles.boxShadow]}>
       <TouchableOpacity style={styles.titleContainer} onPress={showChatList}>
         <Text style={styles.movieTitle}>{movieTitle}</Text>
-        <FontAwesome name="arrow-right" size={25} color="cornflowerblue" />
+        <FontAwesome name="arrow-right" size={20} color="cornflowerblue" />
       </TouchableOpacity>
     </View>
   );
@@ -28,13 +28,13 @@ const styles = StyleSheet.create({
   },
   movieTitle: {
     fontFamily: "EuphemiaUCAS-Bold",
-    fontSize: 25,
+    fontSize: 20,
     color: "cornflowerblue",
     marginRight: 10,
   },
   titleContainer: {
     flexDirection: "row",
-    justifyContent: "flex-start",
+    justifyContent: "space-around",
     alignItems: "center",
   },
 });
